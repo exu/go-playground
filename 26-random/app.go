@@ -9,7 +9,7 @@ func main() {
 
 	// For example, rand.Intn returns a random int n, 0 <= n < 100.
 
-	fmt.Print(rand.Intn(100), ",")
+	fmt.Print(rand.Intn(1000000), ".")
 	fmt.Print(rand.Intn(100))
 	fmt.Println()
 

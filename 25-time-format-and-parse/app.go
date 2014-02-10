@@ -49,6 +49,5 @@ func main() {
 	p(e)
 
 	// There are several predefined formats that you can use for both formatting and parsing.
-
 	p(t.Format(time.Kitchen))
 }
