@@ -21,14 +21,16 @@ func main() {
 	// If you just wanted to wait, you could have used time.Sleep. One reason a timer may
 	// be useful is that you can cancel the timer before it expires. Here’s an example of
 	// that.
-	timer2 := time.NewTimer(time.Second)
+	timer2 := time.NewTimer(time.Second * 2)
 	go func() {
 		<-timer2.C
 		fmt.Println("Timer 2 expired")
 	}()
+
+	time.Sleep(time.Second)
 	stop2 := timer2.Stop()
 	if stop2 {
-		fmt.Println("Timer 2 stopped")
+		fmt.Println("Timer 2 stopped before expired")
 	}
 }
 
