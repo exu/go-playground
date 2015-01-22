@@ -1,34 +1,25 @@
 package main
 
 import "fmt"
-import "github.com/jmoiron/sqlx"
 import "database/sql"
+import "github.com/jmoiron/sqlx"
+
+// We're using MySQL
 import _ "github.com/go-sql-driver/mysql"
 
 type Item struct {
-	Id            int            `db:"id"`
-	Name          sql.NullString `db:"nazwa"`
-	Description   sql.NullString `db:"opis"`
-	Sklad         sql.NullString `db:"sklad"`
-	Przygotowanie sql.NullString `db:"przygotowanie"`
-	Tags          sql.NullString `db:"tags"`
-	CategoryId    sql.NullInt64  `db:"category_id"`
-	Category2Id   sql.NullInt64  `db:"category2_id"`
-	Category3Id   sql.NullInt64  `db:"category3_id"`
-	Created       sql.NullString `db:"created"`
-	Updated       sql.NullString `db:"updated"`
-	PublishAt     sql.NullString `db:"publish_at"`
-	CookTime      sql.NullString `db:"czas_przygotowania"`
-	IsMain        bool           `db:"main"`
-	Type          sql.NullString `db:"type"`
-	Video         sql.NullString `db:"video"`
+	Id          int            `db:"id"`
+	Name        sql.NullString `db:"name"`
+	Description sql.NullString `db:"description"`
 }
 
 func main() {
-	db := sqlx.MustConnect("mysql", "root:p-o0i9@tcp(l:3306)/test")
-
-	row := db.QueryRowx("SELECT * FROM przepisy WHERE id=?", 694)
 	var item Item
+
+	// Must.... functions will panic on fail
+	db := sqlx.MustConnect("mysql", "root:root@tcp(127.0.0.1:3306)/sqlx_test")
+
+	row := db.QueryRowx("SELECT * FROM items WHERE id=?", 3)
 	err := row.StructScan(&item)
 
 	if err != nil {

@@ -1,35 +1,28 @@
 package main
 
 import "fmt"
-import "github.com/jmoiron/sqlx"
 import "database/sql"
+import "github.com/jmoiron/sqlx"
+
+// We're using MySQL
 import _ "github.com/go-sql-driver/mysql"
 
 type Item struct {
-	Id            int            `db:"id"`
-	Name          sql.NullString `db:"nazwa"`
-	Description   sql.NullString `db:"opis"`
-	Sklad         sql.NullString `db:"sklad"`
-	Przygotowanie sql.NullString `db:"przygotowanie"`
-	Tags          sql.NullString `db:"tags"`
-	CategoryId    sql.NullInt64  `db:"category_id"`
-	Category2Id   sql.NullInt64  `db:"category2_id"`
-	Category3Id   sql.NullInt64  `db:"category3_id"`
-	Created       sql.NullString `db:"created"`
-	Updated       sql.NullString `db:"updated"`
-	PublishAt     sql.NullString `db:"publish_at"`
-	CookTime      sql.NullString `db:"czas_przygotowania"`
-	IsMain        bool           `db:"main"`
-	Type          sql.NullString `db:"type"`
-	Video         sql.NullString `db:"video"`
+	Id          int            `db:"id"`
+	Name        sql.NullString `db:"name"`
+	Description sql.NullString `db:"description"`
 }
 
 func main() {
-	db := sqlx.MustConnect("mysql", "root:p-o0i9@tcp(l:3306)/test")
+	// Must.... functions will panic on fail
+	db := sqlx.MustConnect("mysql", "root:root@tcp(127.0.0.1:3306)/sqlx_test")
 	var item Item
-	err := db.Get(&item, "SELECT * FROM przepisy ORDER BY ID DESC LIMIT 1")
+
+	// We'll get most recent item and map it into our struct
+	err := db.Get(&item, "SELECT * FROM items ORDER BY id DESC LIMIT 1")
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(item)
+
+	fmt.Printf("id: %d, %s, %s", item.Id, item.Name.String, item.Description.String)
 }

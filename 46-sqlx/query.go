@@ -7,10 +7,9 @@ import "github.com/jmoiron/sqlx"
 import _ "github.com/go-sql-driver/mysql"
 
 func main() {
-	db := sqlx.MustConnect("mysql", "root:p-o0i9@tcp(l:3306)/test")
-	fmt.Println(db)
+	db := sqlx.MustConnect("mysql", "root:root@tcp(127.0.0.1:3306)/sqlx_test")
 
-	rows, err := db.Query("SELECT id, nazwa, opis FROM przepisy")
+	rows, err := db.Query("SELECT id, name, description FROM items")
 
 	if err != nil {
 		panic(err)
@@ -18,15 +17,15 @@ func main() {
 
 	for rows.Next() {
 		var id int
-		var nazwa string
-		var opis string
+		var name string
+		var description string
 
-		err = rows.Scan(&id, &nazwa, &opis)
+		err = rows.Scan(&id, &name, &description)
 
 		if err != nil {
 			panic(err)
 		}
 
-		fmt.Println(id, nazwa, opis)
+		fmt.Println(id, name, description)
 	}
 }

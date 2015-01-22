@@ -1,22 +1,23 @@
 package main
 
 import "fmt"
+import "database/sql"
 import "github.com/jmoiron/sqlx"
 
-import "database/sql"
+// We're using MySQL
 import _ "github.com/go-sql-driver/mysql"
 
+// We can map columns to fields
 type Item struct {
-	Id          int            `db:"id"`
-	Name        sql.NullString `db:"nazwa"`
-	Description sql.NullString `db:"opis"`
+	Id  int            `db:"id"`
+	Nme sql.NullString `db:"name"`
+	Dsc sql.NullString `db:"description"`
 }
 
 func main() {
-	db := sqlx.MustConnect("mysql", "root:p-o0i9@tcp(l:3306)/test")
-	fmt.Println(db)
 
-	rows, err := db.Queryx("SELECT id, nazwa, opis FROM przepisy")
+	db := sqlx.MustConnect("mysql", "root:root@tcp(127.0.0.1:3306)/sqlx_test")
+	rows, err := db.Queryx("SELECT id, name, description FROM items")
 
 	if err != nil {
 		panic(err)
@@ -31,10 +32,10 @@ func main() {
 		}
 
 		fmt.Printf(
-			"%d - %s:  %s\n\n===================\n\n",
+			"%d - %s:  %s\n===================\n",
 			item.Id,
-			item.Name.String,
-			item.Description.String,
+			item.Nme.String,
+			item.Dsc.String,
 		)
 	}
 }
