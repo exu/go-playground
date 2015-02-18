@@ -1,0 +1,13 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: db
+    database_user: root
+    database_password: root
+    mailer_transport: gmail
+    mailer_host: null
+    mailer_user: email@gmail.com
+    mailer_password: dupadupa
+    locale: pl
+    secret: k932k9k439rk40r
