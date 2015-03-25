@@ -11,12 +11,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	err = watcher.Watch("/tmp/foo")
+	err = watcher.Watch("/tmp")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// in example it was wrapped in go func(){}
+	// in original example it was wrapped in go func(){}
+	// I prefer blocking version
 	for {
 		select {
 		case ev := <-watcher.Event:

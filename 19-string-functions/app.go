@@ -29,6 +29,7 @@ func main() {
 	p("ToLower:   ", s.ToLower("TEST"))
 	p("ToUpper:   ", s.ToUpper("test"))
 	p()
+	p("substring:   ", "lalalallalaallalalalalala"[:10])
 
 	// You can find more functions in the strings package docs.
 
