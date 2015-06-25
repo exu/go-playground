@@ -2,15 +2,18 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"math/rand"
 	"net/http"
 )
 
 func main() {
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, &map[string]interface{}{"aaa": 1})
+		c.JSON(http.StatusOK, &map[string]interface{}{
+			"nmel_errors_count": rand.Int(),
+			"users":             rand.Int(),
+		})
 	})
 
-	// Listen and serve on 0.0.0.0:8080
-	r.Run(":8080")
+	r.Run(":8081")
 }
