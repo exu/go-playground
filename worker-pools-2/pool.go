@@ -31,6 +31,6 @@ func main() {
 	close(jobs)
 	// Finally we collect all the results of the work.
 	for a := 1; a <= 9; a++ {
-		<-results
+		fmt.Println("result: ", a, " = ", <-results)
 	}
 }
